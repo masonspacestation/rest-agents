@@ -8,5 +8,5 @@ export const LocationSchema = new Schema({
   area: { type: String, required: true },
   labels: [{ type: String, required: true }]
 },
-  { timestamps: true, toJSON: { virtuals: true } }
+  { toJSON: { virtuals: true } }
 )
