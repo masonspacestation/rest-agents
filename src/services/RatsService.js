@@ -13,4 +13,4 @@ class RatsService {
 }
 
 
-export const ratsService = new RatsService
+export const ratsService = new RatsService()
