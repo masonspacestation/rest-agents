@@ -12,7 +12,7 @@ export class MissionsController extends BaseController {
       .get('', this.getMissions)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createMission)
-      .put('', this.updateMission)
+      .put('/:missionId', this.updateMission)
   }
 
   async getMissions(request, response, next) {
@@ -37,8 +37,13 @@ export class MissionsController extends BaseController {
   }
 
   async updateMission(request, response, next) {
-    const missionData = request.body
-    const missionId = request.params.missionId
-    const updatedMission = await missionsService.updateMission(missionData, missionId)
+    try {
+      const missionData = request.body
+      const missionId = request.params.missionId
+      const updatedMission = await missionsService.updateMission(missionData, missionId)
+      response.send(updatedMission)
+    } catch (error) {
+      next(error)
+    }
   }
 }

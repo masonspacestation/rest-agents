@@ -4,6 +4,16 @@ import { dbContext } from "../db/DbContext.js"
 
 
 class MissionsService {
+  async updateMission(missionData, missionId) {
+    const missionToUpdate = await dbContext.Misson.findById(missionId)
+    if (!missionToUpdate) throw new Error(`Retrieval mission failed for id: ${missionId}`)
+
+    missionToUpdate.completed = missionData.completed ?? missionToUpdate.completed
+    await missionToUpdate.save()
+    return missionToUpdate
+  }
+
+
   async getLocationMissions(locId) {
     const missions = await dbContext.Misson.find({ locationId: locId }).populate('rat', 'callsign')
     return missions
